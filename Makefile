@@ -1,7 +1,23 @@
 #
 # mman-win32 (mingw32) Makefile
 #
-include config.mak
+#include config.mak
+
+CC=i686-w64-mingw32-gcc
+AR=i686-w64-mingw32-ar
+RANLIB=i686-w64-mingw32-ranlib
+STRIP=i686-w64-mingw32-strip
+
+BUILD_STATIC=yes
+BUILD_SHARED=yes
+BUILD_MSVC=
+
+PREFIX=output
+bindir=$(PREFIX)/bin
+libdir=$(PREFIX)/lib
+incdir=$(PREFIX)/include/sys
+
+LIBCMD=echo ignoring lib
 
 CFLAGS=-Wall -O3 -fomit-frame-pointer
 
@@ -56,7 +72,7 @@ test.exe: test.c mman.c mman.h
 	$(CC) -o test.exe test.c -L. -lmman
 
 test: $(TARGETS) test.exe
-	test.exe
+	wine test.exe
 
 clean::
 	rm -f mman.o libmman.a libmman.dll.a libmman.dll libmman.def libmman.lib test.exe *.dat
